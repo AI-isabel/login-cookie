@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .right {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>注册</h2>
+    <form action="./success.html">
+        <p><input type="text" placeholder='用户名' id="user">
+            <span id="userTips"></span></p>
+        <p><input type="password" placeholder='密码' id="pass">
+            <span id="passTips"></span>
+        </p>
+        <p><input type="password" placeholder='确认密码' id="repass">
+            <span id="repassTips"></span></p>
+        <button id="btn" type="button">注册</button>
+    </form>
+    <script src="./cookie.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script>
+        var user = $('#user').blur(function (e) {
+            e.preventDefault();
+            var reg = /^[a-zA-Z_]\w{4,11}$/
+            if (reg.test($('#user').val())) {
+                console.log($('#user').val());
+                console.log(reg.test($('#user').val()));
+                $('#userTips').html('ok')
+                $('#userTips').addClass('right');
+                return true;
+            } else {
+                $('#userTips').html('no')
+                $('#userTips').attr('style', 'color:red')
+                return false;
+            }
+        });
+        var pass = $('#pass').blur(function (e) {
+            e.preventDefault();
+
+            var reg = /^\S{5,12}$/
+            if (reg.test($('#pass').val())) {
+                $('#passTips').html('ok')
+                $('#passTips').addClass('right');
+                return true;
+            } else {
+                $('#passTips').html('5-12位非空字符')
+                // $('#passTips').attr('style', 'color:red')
+                $('#passTips').css('color', 'red');
+                return false;
+            }
+        });
+        var re = $('#repass').blur(function (e) {
+            e.preventDefault();
+
+            if ($('#repass').val() !== "" && $('#repass').val() == $('#pass').val()) {
+                $('#repassTips').html('ok');
+                $('#repassTips').css('color', 'green')
+                return true;
+            } else {
+                $('#repassTips').html('两次密码不一致');
+                $('#repassTips').css('color', 'red')
+                return false
+            }
+        });
+
+        $('#btn').click(function (e) {
+            e.preventDefault();
+         if (re&&pass&&user) {
+             createCookie($('#user').val(),$('#pass').val(), 10)
+             $('form').submit();
+         }
+        });
+
+    </script>
+</body>
+
+</html>

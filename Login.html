@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>登录</h2>
+    <form action="./success.html">
+        <p><input type="text" placeholder='用户名' id="user">
+            <span id="userTips"></span></p>
+        <p><input type="password" placeholder='密码' id="pass">
+            <span id="passTips"></span>
+        </p>
+        <button id="btn" type="button">登录</button>
+    </form>
+    <script src="./cookie.js">
+    </script>
+    <script src="/js/jquery.js"></script>
+    <script>
+        $('#btn').click(function (e) { 
+            e.preventDefault();
+            if ($('#pass').val() === getCookie($('#user').val())) {
+                alert('登录成功');
+            } else {
+                console.log('登录失败');
+            }
+            
+        });
+     
+    </script>
+</body>
+
+</html>
